@@ -8,6 +8,7 @@ import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
 import entidades.Residuo_Transporte;
 import entidades.Solicitud_de_Traslado;
+import interfaces.IRepoSolicitudTraslado;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -22,7 +23,7 @@ import org.bson.types.ObjectId;
  *
  * @author Equipo 1 Jose,Abraham y Oroz
  */
-public class RepoSolicitudTraslado {
+public class RepoSolicitudTraslado implements IRepoSolicitudTraslado{
 
     private MongoDatabase baseDatos;
 
@@ -50,6 +51,7 @@ public class RepoSolicitudTraslado {
      * @return true si la solicitud de traslado se registro con exito, false en
      * caso contrario
      */
+    @Override
     public boolean guardarSolicitud(Solicitud_de_Traslado solicitudDeTraslado) {
         MongoCollection<Solicitud_de_Traslado> coleccion = this.getCollectionSolicitudes();
         if (solicitudDeTraslado != null) {
@@ -72,6 +74,7 @@ public class RepoSolicitudTraslado {
      *
      * @return La lista de solicitudes no atendidas.
      */
+    @Override
     public List<Solicitud_de_Traslado> consultarSolicitudesNoAtendidas() {
         MongoCollection<Solicitud_de_Traslado> coleccion = this.getCollectionSolicitudes();
         List<Solicitud_de_Traslado> lista = new ArrayList<>();
@@ -98,9 +101,11 @@ public class RepoSolicitudTraslado {
      * empresa productora de la solicitud ingresada
      *
      * @param solicitudDeTraslado Solicitud de traslado a validar.
-     * @return El mensaje que se adecue ala validacion,Ya se alcanzo el limite de solicitudes en la fecha seleccionado o 
-     * no es posible realizar solicitudes con los mismo datos.
+     * @return El mensaje que se adecue ala validacion,Ya se alcanzo el limite
+     * de solicitudes en la fecha seleccionado o no es posible realizar
+     * solicitudes con los mismo datos.
      */
+    @Override
     public String validarSolicitud(Solicitud_de_Traslado solicitudDeTraslado) {
         MongoCollection<Solicitud_de_Traslado> coleccion = this.getCollectionSolicitudes();
         List<Solicitud_de_Traslado> lista = new ArrayList<>();
@@ -123,7 +128,7 @@ public class RepoSolicitudTraslado {
                     ).first();
                     if (auxiliar != null) {
                         return auxiliar.getFechaSolicitud().equals(solicitudDeTraslado.getFechaSolicitud())
-                                && auxiliar.getEmpresaProductora().getId().equals(solicitudDeTraslado.getEmpresaProductora().getId())?"No se pueden hacer solicitudes repetidas.":"";
+                                && auxiliar.getEmpresaProductora().getId().equals(solicitudDeTraslado.getEmpresaProductora().getId()) ? "No se pueden hacer solicitudes repetidas." : "";
                     } else {
                         return "";
                     }
@@ -142,8 +147,10 @@ public class RepoSolicitudTraslado {
      * no, regresa una nueva lista
      *
      * @param fecha Fecha para consular las solictudes.
-     * @return La lista de solicitudes por fecha, null en caso contrario de ninguna coincidencia.
+     * @return La lista de solicitudes por fecha, null en caso contrario de
+     * ninguna coincidencia.
      */
+    @Override
     public List<Solicitud_de_Traslado> consultarSolicitudesFecha(Date fecha) {
         MongoCollection<Solicitud_de_Traslado> coleccion = this.getCollectionSolicitudes();
         List<Solicitud_de_Traslado> lista = new ArrayList<>();
@@ -165,10 +172,11 @@ public class RepoSolicitudTraslado {
      * Sirve para actualizar una solicitud, cambia el estatus a asignado, y
      * actualiza el residuo de transporte anterior por el recibido de parámetro
      *
-  * @param _idSolicitudTraslado ID de la solicitud de traslado
+     * @param _idSolicitudTraslado ID de la solicitud de traslado
      * @param residuoTransporte Residuo de transporte a actualizar.
      * @return true si este se actualizo con exito, false en caso contrario.
      */
+    @Override
     public boolean actualizarSolicitud(ObjectId _idSolicitudTraslado, Residuo_Transporte residuoTransporte) {
         MongoCollection<Solicitud_de_Traslado> coleccion = this.getCollectionSolicitudes();
         try {
@@ -185,9 +193,10 @@ public class RepoSolicitudTraslado {
      * Sirve para actualizar una solicitud de traslado, actualiza la solicitud
      * que tiene el id ingresado y cambia su estatus a "Concluida"
      *
-    * @param _idSolicitudTraslado ID de la solicitud de traslado a actualizar.
+     * @param _idSolicitudTraslado ID de la solicitud de traslado a actualizar.
      * @return true si esta se actualizo con exito, false en caso contrario.
      */
+    @Override
     public boolean actualizarSolicitudTraslado(ObjectId _idSolicitudTraslado) {
         MongoCollection<Solicitud_de_Traslado> coleccion = this.getCollectionSolicitudes();
         try {

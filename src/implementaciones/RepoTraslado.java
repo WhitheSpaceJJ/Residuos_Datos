@@ -4,13 +4,14 @@ import com.mongodb.MongoException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import entidades.Traslado;
+import interfaces.IRepoTraslado;
 
 /**
  * Clase que representa el repositorio de traslados.
  *
  * @author Equipo 1 Jose,Abraham y Oroz
  */
-public class RepoTraslado {
+public class RepoTraslado implements IRepoTraslado {
 
     private MongoDatabase baseDatos;
 
@@ -38,6 +39,7 @@ public class RepoTraslado {
      * @return true si el traslado se registro con exito, false en caso
      * contrario.
      */
+    @Override
     public boolean guardarTraslado(Traslado traslado) {
         MongoCollection<Traslado> coleccion = this.getCollectionTraslado();
         if (traslado != null) {

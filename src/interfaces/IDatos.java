@@ -1,4 +1,4 @@
-package implementaciones;
+package interfaces;
 
 import entidades.Administrador;
 import entidades.Asignacion_Traslado;
@@ -11,9 +11,7 @@ import entidades.Solicitud_de_Traslado;
 import entidades.Transportador;
 import entidades.Transporte;
 import entidades.Traslado;
-import entidades.Usuario;
 import entidades.Vehiculo;
-import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
 

@@ -14,6 +14,7 @@ import entidades.Empresa;
 import entidades.Productora;
 import entidades.Transporte;
 import entidades.Vehiculo;
+import interfaces.IRepoEmpresas;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +26,7 @@ import org.bson.types.ObjectId;
  *
  * @author Equipo 1 Jose,Abraham y Oroz
  */
-public class RepoEmpresas {
+public class RepoEmpresas implements IRepoEmpresas{
 
     private MongoDatabase baseDatos;
 
@@ -59,7 +60,8 @@ public class RepoEmpresas {
      * tipo empresa productora y los devuelve en caso de que los encuentre
      *
      * @return Lista de la empresa productoras disponibles.
-     */
+     */ 
+    @Override
     public List<Productora> getEmpresasProductoras() {
         MongoCollection<Productora> coleccion = this.getCollectionEmpresasProductora();
         List<Productora> lista = new ArrayList<>();
@@ -77,7 +79,7 @@ public class RepoEmpresas {
      * tipo empresa de transporte y los devuelve en caso de que los encuentre
      *
      * @return Lista de las empresas de transporte disponibles.
-     */
+     */ @Override
     public List<Transporte> getEmpresasTransportes() {
         MongoCollection<Transporte> coleccion = this.getCollectionEmpresasTransporte();
         List<Transporte> lista = new ArrayList<>();
@@ -97,7 +99,7 @@ public class RepoEmpresas {
      *
      * @param _id El id de la empresa productora.
      * @return La empresa transportadora obtenida.
-     */
+     */ @Override
     public Productora getEmpresaProductora(ObjectId _id) {
         MongoCollection<Productora> coleccion = this.getCollectionEmpresasProductora();
         Productora productoraConsulta = new Productora();
@@ -116,7 +118,7 @@ public class RepoEmpresas {
      *
      * @param _id El id de la empresa de transporte.
      * @return La empresa de transporte obtenida.
-     */
+     */ @Override
     public Transporte getEmpresaTransporte(ObjectId _id) {
         MongoCollection<Transporte> coleccion = this.getCollectionEmpresasTransporte();
         Transporte transporteConsulta = new Transporte();
@@ -137,7 +139,7 @@ public class RepoEmpresas {
      * @param productora La empresa productora a guardar.
      * @return true si la empresa empresa productora se guardo con exito, false
      * en caso contrario.
-     */
+     */ @Override
     public boolean guardarEmpresaProductora(Productora productora) {
         MongoCollection<Productora> coleccion = this.getCollectionEmpresasProductora();
         if (productora != null) {
@@ -160,7 +162,7 @@ public class RepoEmpresas {
         * @param transporte La empresa de transporte a registrar.
      * @return true si la empresa de transporte registrada se guardo con exito,
      * false en caso contrario.
-     */
+     */ @Override
     public boolean guardarEmpresaTransporte(Transporte transporte) {
         MongoCollection<Transporte> coleccion = this.getCollectionEmpresasTransporte();
         if (transporte != null) {
@@ -186,7 +188,7 @@ public class RepoEmpresas {
      * @param vehiculo Vehiculo a guardar.
      * @param transporteEmpresa Empresa transportadora a guardar el vehiculo.
      * @return true si el vehiculo se guardo con exito, false en caso contrario.
-     */
+     */ @Override
     public boolean guardarVehiculo(Vehiculo vehiculo, Transporte transporteEmpresa) {
         MongoCollection<Transporte> coleccion = this.getCollectionEmpresasTransporte();
         if (vehiculo != null) {

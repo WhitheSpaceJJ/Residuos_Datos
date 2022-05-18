@@ -7,6 +7,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import entidades.Residuo;
+import interfaces.IRepoResiduos;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Filter;
@@ -19,7 +20,7 @@ import org.bson.types.ObjectId;
  *
  * @author Equipo 1 Jose,Abraham y Oroz
  */
-public class RepoResiduos {
+public class RepoResiduos implements IRepoResiduos {
 
     private MongoDatabase baseDatos;
 
@@ -46,6 +47,7 @@ public class RepoResiduos {
      * @param _id EL ide del residuo a consultar.
      * @return El residuo si la busqueda tuvo exito, null en caso contrario.
      */
+    @Override
     public Residuo getResiduo(ObjectId _id) {
         MongoCollection<Residuo> coleccion = this.getCollectionResiduos();
         Residuo residuoConsulta = new Residuo();
@@ -67,6 +69,7 @@ public class RepoResiduos {
      * @return true si el residuo se registro con exito, false en caso
      * contrario.
      */
+    @Override
     public boolean guardarResiduo(Residuo residuo) {
         MongoCollection<Residuo> coleccion = this.getCollectionResiduos();
         if (residuo != null) {
@@ -88,6 +91,7 @@ public class RepoResiduos {
      * @param idEmpresaProductora ID de la empresa productora.
      * @return lista de los residuos de la empresa productora.
      */
+    @Override
     public List<Residuo> consultarResiduosProductor(ObjectId idEmpresaProductora) {
         MongoCollection<Residuo> coleccion = this.getCollectionResiduos();
         List<Residuo> lista = new ArrayList<>();
@@ -112,6 +116,7 @@ public class RepoResiduos {
      * @param residuo Residuo a validar.
      * @return true si cumple con lo necesario, false en caso contrario
      */
+    @Override
     public String validarResiduo(Residuo residuo) {
         MongoCollection<Residuo> coleccion = this.getCollectionResiduos();
         Residuo residuoConsulta = null;

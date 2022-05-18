@@ -11,58 +11,73 @@ import entidades.Productor;
 import entidades.Residuo;
 import entidades.Transportador;
 import entidades.Usuario;
+import interfaces.IRepoUsuarios;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+
 /**
  * Clase que representa el repositorio de quimicos.
  *
  * @author Equipo 1 Jose,Abraham y Oroz
  */
-public class RepoUsuarios {
+public class RepoUsuarios implements IRepoUsuarios {
 
     private MongoDatabase baseDatos;
-/**
- * Constructor vacio que inicializa la base de datos
- */
+
+    /**
+     * Constructor vacio que inicializa la base de datos
+     */
     public RepoUsuarios() {
         this.baseDatos = ConexionBD.getBaseDatos();
     }
-/**
- * Obtiene la colección de administrador de los usuarios
+
+    /**
+     * Obtiene la colección de administrador de los usuarios
+     *
      * @return La coleccion correspondiente.
- */
+     */
     private MongoCollection<Administrador> getCollectionAdministrador() {
         return this.baseDatos.getCollection("Usuarios", Administrador.class);
     }
-/**
- * Obtiene la colección de transportador de los usuarios
+
+    /**
+     * Obtiene la colección de transportador de los usuarios
+     *
      * @return La coleccion correspondiente.
- */
+     */
     private MongoCollection<Transportador> getCollectionTransportador() {
         return this.baseDatos.getCollection("Usuarios", Transportador.class);
     }
-/**
- * Obtiene la colección de productor de los usuarios
+
+    /**
+     * Obtiene la colección de productor de los usuarios
+     *
      * @return La coleccion correspondiente.
- */
+     */
     private MongoCollection<Productor> getCollectionProductor() {
         return this.baseDatos.getCollection("Usuarios", Productor.class);
     }
-/**
- * Obtiene la colección de los usuarios
+
+    /**
+     * Obtiene la colección de los usuarios
+     *
      * @return La coleccion correspondiente.
- */
+     */
     private MongoCollection<Usuario> getCollectionUsuario() {
         return this.baseDatos.getCollection("Usuarios", Usuario.class);
     }
-/**
- * Método que se comunica con la base de datos para insertar un administrador  en caso de que si exista
- * @param administrador Usuario administrador a guardar.
+
+    /**
+     * Método que se comunica con la base de datos para insertar un
+     * administrador en caso de que si exista
+     *
+     * @param administrador Usuario administrador a guardar.
      * @return true si este se guardo con exito, false en caso contrario.
- */
+     */
+    @Override
     public boolean guardarAdministrador(Administrador administrador) {
         MongoCollection<Administrador> coleccion = this.getCollectionAdministrador();
         if (administrador != null) {
@@ -76,12 +91,17 @@ public class RepoUsuarios {
         }
         return false;
     }
-/**
- * Método que se encarga de consultar en la base de datos si existe el administrador con el nombre y contraseña ingresados, de manera que los datos de un administrador coincidan con los ingresados en este método
-    * @param nombre Nombre del usuario a consultar.
+
+    /**
+     * Método que se encarga de consultar en la base de datos si existe el
+     * administrador con el nombre y contraseña ingresados, de manera que los
+     * datos de un administrador coincidan con los ingresados en este método
+     *
+     * @param nombre Nombre del usuario a consultar.
      * @param contraseña Contraseña del usuario.
      * @return El usario si este se encontro, null en caso contrario.
- */
+     */
+    @Override
     public Administrador consultarAdministrador(String nombre, String contraseña) {
         MongoCollection<Administrador> coleccion = this.getCollectionAdministrador();
         Administrador administradorConsulta = new Administrador();
@@ -94,12 +114,15 @@ public class RepoUsuarios {
         }
 
     }
-/**
- * Método que sirve para insertar un productor en caso de que este si exista
-  * @param productor Productor a registrar.
+
+    /**
+     * Método que sirve para insertar un productor en caso de que este si exista
+     *
+     * @param productor Productor a registrar.
      * @return true si el usuario productor se guardo con exito, false en caso
      * contrario
- */
+     */
+    @Override
     public boolean guardarProductor(Productor productor) {
         MongoCollection<Productor> coleccion = this.getCollectionProductor();
         if (productor != null) {
@@ -115,11 +138,15 @@ public class RepoUsuarios {
     }
 
     /**
-     * Método que se encarga de consultar en la base de datos si existe el productor con el nombre y contraseña ingresados, de manera que los datos de un productor coincidan con los ingresados en este método
-    * @param nombre Nombre del usuario productor a consultar.
+     * Método que se encarga de consultar en la base de datos si existe el
+     * productor con el nombre y contraseña ingresados, de manera que los datos
+     * de un productor coincidan con los ingresados en este método
+     *
+     * @param nombre Nombre del usuario productor a consultar.
      * @param contraseña Contraseña del usuario productor a consultar.
      * @return El usuario productor si este existe, null en caso contrario.
      */
+    @Override
     public Productor consultarProductor(String nombre, String contraseña) {
 
         MongoCollection<Productor> coleccion = this.getCollectionProductor();
@@ -132,11 +159,15 @@ public class RepoUsuarios {
             return null;
         }
     }
-/**
- * Sirve para guardar en la base de datos el transportador que sea ingresado a este método en caso de que si exista
-  * @param transportador Usuario transportador a guardar.
+
+    /**
+     * Sirve para guardar en la base de datos el transportador que sea ingresado
+     * a este método en caso de que si exista
+     *
+     * @param transportador Usuario transportador a guardar.
      * @return true si este se guardo con exito, false en caso contrario.
- */
+     */
+    @Override
     public boolean guardarTransportador(Transportador transportador) {
         MongoCollection<Transportador> coleccion = this.getCollectionTransportador();
         if (transportador != null) {
@@ -152,12 +183,16 @@ public class RepoUsuarios {
     }
 
     /**
-     * Método que se encarga de consultar en la base de datos si existe el transportador con el nombre y contraseña ingresados, de manera que los datos de un transportador coincidan con los ingresados en este método
+     * Método que se encarga de consultar en la base de datos si existe el
+     * transportador con el nombre y contraseña ingresados, de manera que los
+     * datos de un transportador coincidan con los ingresados en este método
+     *
      * @param nombre Nombre del usuario a consultar.
      * @param contraseña Contraseña del usuario.
      * @return El usuario transportado que se obtuvo o null si este no se
      * encontro.
      */
+    @Override
     public Transportador consultarTransportador(String nombre, String contraseña) {
         MongoCollection<Transportador> coleccion = this.getCollectionTransportador();
         Transportador transportadorConsulta = new Transportador();
@@ -172,10 +207,15 @@ public class RepoUsuarios {
     }
 
     /**
-     * Método que sirve para validar un usuario, recibe de parámetro el nombre del usuario, este es consultado en la base de datos, y lo devuelve en caso de que si exista
+     * Método que sirve para validar un usuario, recibe de parámetro el nombre
+     * del usuario, este es consultado en la base de datos, y lo devuelve en
+     * caso de que si exista
+     *
      * @param nombre Nombre a validar.
      * @return true si existe alguno, false en caso contrario.
      */
+    @Override
+
     public boolean validarUsuario(String nombre) {
         MongoCollection<Usuario> coleccion = this.getCollectionUsuario();
         Usuario usuarioConsulta = new Usuario();

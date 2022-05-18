@@ -5,6 +5,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import entidades.Quimico;
+import interfaces.IRepoQuimicos;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -14,7 +15,7 @@ import org.bson.types.ObjectId;
  *
  * @author Equipo 1 Jose,Abraham y Oroz
  */
-public class RepoQuimicos {
+public class RepoQuimicos implements IRepoQuimicos{
 
     private MongoDatabase baseDatos;
 
@@ -40,6 +41,7 @@ public class RepoQuimicos {
      *
      * @return Lista de quimicos del sistema.
      */
+    @Override
     public List<Quimico> getQuimicos() {
         MongoCollection<Quimico> coleccion = this.getCollectionQuimicos();
         List<Quimico> lista = new ArrayList<>();
@@ -63,6 +65,7 @@ public class RepoQuimicos {
       * @param quimico Quimico a guardar.
      * @return true si el quimico se guardo, false en caso contrario.
      */
+    @Override
     public boolean guardarQuimico(Quimico quimico) {
         MongoCollection<Quimico> coleccion = this.getCollectionQuimicos();
         if (quimico != null) {

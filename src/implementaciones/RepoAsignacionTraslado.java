@@ -5,6 +5,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import entidades.Asignacion_Traslado;
+import interfaces.IRepoAsignacionTraslado;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
@@ -15,7 +16,7 @@ import org.bson.types.ObjectId;
  *
  * @author Equipo 1 Jose,Abraham y Oroz
  */
-public class RepoAsignacionTraslado {
+public class RepoAsignacionTraslado implements IRepoAsignacionTraslado{
 
     private MongoDatabase baseDatos;
 
@@ -43,7 +44,7 @@ public class RepoAsignacionTraslado {
      *
     * @param list Lista de asignaciones de traslado a registrar.
      * @return true si estas se registraron con exito, false en caso contraio.
-     */
+     */@Override
     public boolean guardarAsignacionTraslado(List<Asignacion_Traslado> list) {
         MongoCollection<Asignacion_Traslado> coleccion = this.getCollectionAsignacionTraslado();
         if (!list.isEmpty()) {
@@ -64,7 +65,7 @@ public class RepoAsignacionTraslado {
      *
        * @param idEmpresaTransporte ID de la empresa de transporte.
      * @return La lista de las asignaciones de traslado de la empresa de transporte.
-     */
+     */@Override
     public List<Asignacion_Traslado> consultarAsignacionTrasladosEmpresaT(ObjectId idEmpresaTransporte) {
         MongoCollection<Asignacion_Traslado> coleccion = this.getCollectionAsignacionTraslado();
         List<Asignacion_Traslado> lista = new ArrayList<>();
@@ -89,7 +90,7 @@ public class RepoAsignacionTraslado {
      *
        * @param _id ID de la asignacion a actualizar.
      * @return true si esta se actualizo con exito, false en caso contrario.
-     */
+     */@Override
     public boolean actualizarAsignacion(ObjectId _id) {
         MongoCollection<Asignacion_Traslado> coleccion = this.getCollectionAsignacionTraslado();
         try {

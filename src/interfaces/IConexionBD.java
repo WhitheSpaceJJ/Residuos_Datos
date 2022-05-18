@@ -1,4 +1,4 @@
-package implementaciones;
+package interfaces;
 
 import com.mongodb.client.MongoDatabase;
 /**

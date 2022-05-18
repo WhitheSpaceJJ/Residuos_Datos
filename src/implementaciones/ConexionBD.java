@@ -1,6 +1,6 @@
 package implementaciones;
 
-//import com.mongodb.ConnectionString;
+import interfaces.IConexionBD;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
