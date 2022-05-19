@@ -13,6 +13,13 @@ import entidades.Transportador;
 import entidades.Transporte;
 import entidades.Traslado;
 import entidades.Vehiculo;
+import interfaces.IRepoAsignacionTraslado;
+import interfaces.IRepoEmpresas;
+import interfaces.IRepoQuimicos;
+import interfaces.IRepoResiduos;
+import interfaces.IRepoSolicitudTraslado;
+import interfaces.IRepoTraslado;
+import interfaces.IRepoUsuarios;
 import java.util.List;
 import org.bson.types.ObjectId;
 
@@ -27,13 +34,13 @@ import org.bson.types.ObjectId;
  */
 public class FDatos implements IDatos {
 
-    private RepoEmpresas repoEmpresas;
-    private RepoUsuarios repoUsuarios;
-    private RepoAsignacionTraslado repoAsignacionTraslado;
-    private RepoQuimicos repoQuimicos;
-    private RepoResiduos repoResiduos;
-    private RepoSolicitudTraslado repoSolicitudTraslado;
-    private RepoTraslado repoTraslado;
+    private IRepoEmpresas repoEmpresas;
+    private IRepoUsuarios repoUsuarios;
+    private IRepoAsignacionTraslado repoAsignacionTraslado;
+    private IRepoQuimicos repoQuimicos;
+    private IRepoResiduos repoResiduos;
+    private IRepoSolicitudTraslado repoSolicitudTraslado;
+    private IRepoTraslado repoTraslado;
 
     /**
      * Clase que sirve para crear un repo de Asignación Traslado, lo devuelve en
@@ -42,7 +49,7 @@ public class FDatos implements IDatos {
      *
      * @return Instancia de la clase RepoAsignacionTraslado
      */
-    public RepoAsignacionTraslado crearRepoAsignacionTrasladoO() {
+    public IRepoAsignacionTraslado crearRepoAsignacionTrasladoO() {
         if (repoAsignacionTraslado != null) {
             return repoAsignacionTraslado;
         } else {
@@ -58,7 +65,7 @@ public class FDatos implements IDatos {
      *
      * @return Instancia de la clase RepoQuimicos
      */
-    public RepoQuimicos crearRepoQuimicos() {
+    public IRepoQuimicos crearRepoQuimicos() {
         if (repoQuimicos != null) {
             return repoQuimicos;
         } else {
@@ -73,7 +80,7 @@ public class FDatos implements IDatos {
      *
      * @return Instancia de la clase RepoResiduos
      */
-    public RepoResiduos crearRepoResiduos() {
+    public IRepoResiduos crearRepoResiduos() {
         if (repoResiduos != null) {
             return repoResiduos;
         } else {
@@ -89,7 +96,7 @@ public class FDatos implements IDatos {
      *
      * @return Instancia de la clase RepoSolicitudTraslado
      */
-    public RepoSolicitudTraslado crearRepoSolicitudTraslado() {
+    public IRepoSolicitudTraslado crearRepoSolicitudTraslado() {
         if (repoSolicitudTraslado != null) {
             return repoSolicitudTraslado;
         } else {
@@ -104,7 +111,7 @@ public class FDatos implements IDatos {
      *
      * @return Instancia de la clase RepoTraslado
      */
-    public RepoTraslado crearRepoTraslado() {
+    public IRepoTraslado crearRepoTraslado() {
         if (repoTraslado != null) {
             return repoTraslado;
         } else {
@@ -119,7 +126,7 @@ public class FDatos implements IDatos {
      *
      * @return Instancia de la clase RepoUsuarios *
      */
-    public RepoUsuarios crearRepoUsuarios() {
+    public IRepoUsuarios crearRepoUsuarios() {
         if (repoUsuarios != null) {
             return repoUsuarios;
         } else {
@@ -134,7 +141,7 @@ public class FDatos implements IDatos {
      *
      * @return Instancia de la clase RepoEmpresas *
      */
-    public RepoEmpresas crearRepoEmpresas() {
+    public IRepoEmpresas crearRepoEmpresas() {
         if (repoEmpresas != null) {
             return repoEmpresas;
         } else {
